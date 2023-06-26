@@ -4,7 +4,7 @@ import os, random, time, logging
 from css import CSS
 from utils import process_files, clearClicked, provision_dirs
 
-def main():
+def main(port):
     provision_dirs()
     uploadDocs = gr.Interface(
             fn=process_files,
@@ -15,7 +15,7 @@ def main():
             allow_flagging="never"
         )
         
-    with gr.Blocks(css=CSS) as demo:
+    with gr.Blocks(css=CSS) as app:
         with gr.Tab("Chat"):
             chatbot = gr.Chatbot()
             msg = gr.Textbox(show_label=False)
@@ -47,10 +47,10 @@ def main():
                 msg = gr.Textbox(show_label=True,label="LLM Url",info="URL to text generator working with LLMs")
                 gr.Button("Set", scale=2, min_width=200)
     
-    demo.launch()
+    app.launch(server_port=port)
 
 if __name__ == "__main__":
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
     )
-    main()
+    main(8080)
