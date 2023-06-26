@@ -5,9 +5,9 @@ css = """
 #btn-pmargin-bottom {margin-bottom: 20px}
 """
 
-def upload(filename, path):
-    print(path)
-    shutil.copyfile(fileobj.name, path)
+def upload(src_path, trg_path):
+    print("saving " + trg_path)
+    shutil.copyfile(src_path, trg_path)
     
 def process_files(files):
     if not files:
