@@ -5,7 +5,7 @@ from css import CSS
 from utils import process_files, clearClicked, provision_dirs
 
 def main(port):
-    provision_dirs()
+    
     uploadDocs = gr.Interface(
             fn=process_files,
             inputs=[
@@ -53,4 +53,6 @@ if __name__ == "__main__":
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
     )
-    main(8080)
+    port = 8080
+    pre_run_provision()
+    main(port)
