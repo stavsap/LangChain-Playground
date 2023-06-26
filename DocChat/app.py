@@ -5,16 +5,15 @@ css = """
 #btn-pmargin-bottom {margin-bottom: 20px}
 """
 
-def do_something_to_file(path):
+def upload(filename, path):
     print(path)
+    shutil.copyfile(fileobj.name, path)
     
 def process_files(files):
     if not files:
         return "no files selected"
     for fileobj in files:
-        path = os.path.basename(fileobj.name)
-        shutil.copyfile(fileobj.name, path)
-        do_something_to_file(path)
+        upload(fileobj.name, os.path.basename(fileobj.name))
     return str(len(files)) + " uploaded!"
 
 def clearClicked():
@@ -58,7 +57,7 @@ with gr.Blocks(css=css) as demo:
             
     with gr.Tab("Settings"):        
         with gr.Box():
-            msg = gr.Textbox(show_label=True,label="LLM Url",info="url to text generator working with LLMs")
-            gr.Button("Set")
+            msg = gr.Textbox(show_label=True,label="LLM Url",info="URL to text generator working with LLMs")
+            gr.Button("Set", scale=2, min_width=200)
 
 demo.launch()
