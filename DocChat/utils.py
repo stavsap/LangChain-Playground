@@ -3,7 +3,7 @@ import os, shutil, logging
 from constants import 
 
 def upload(src_path):
-    trg_path = os.path.basename(src_path)
+    trg_path = DOCS_DIR + os.path.basename(src_path)
     logging.info(f"Uploading: {trg_path}")
     shutil.copyfile(src_path, trg_path)
     
