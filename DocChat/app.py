@@ -40,7 +40,7 @@ def main(port):
                 with gr.Column(scale=2, min_width=200):
                     gr.Button("Clear Files")
             with gr.Box():
-                gr.Dataset(label="Files", components=["text"], samples=[[f] for f in get_current_documents_filename()])
+                gr.Dataset(label="Files", components=["text"], samples=[[f] for f in get_current_documents_filenames()])
                 
         with gr.Tab("Settings"):        
             with gr.Box():
