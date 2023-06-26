@@ -8,5 +8,5 @@
 
 ## [DocChat](DocChat/README.md)
 
-a small gradio chat bot with chroma and langchain integration, works with [text-generation-webui](https://github.com/oobabooga/text-generation-webui) to get LLM via api.
+A small [gradio](https://gradio.app/) chat bot with [chroma](https://www.trychroma.com) and langchain integration, works with [text-generation-webui](https://github.com/oobabooga/text-generation-webui) to get LLM via api.
 
