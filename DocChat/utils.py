@@ -23,6 +23,10 @@ def pre_run_provision():
 def get_current_documents_filenames():
     return os.listdir(DOCS_DIR)
     
+def create_dir(path):
+    if not os.path.exists(path)
+        os.makedirs(path)
+    
 def provision_dirs():
-    os.makedirs(DOCS_DIR)
-    os.makedirs(DB_DIR)
+    create_dir(DOCS_DIR)
+    create_dir(DB_DIR)
