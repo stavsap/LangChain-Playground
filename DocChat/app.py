@@ -4,7 +4,11 @@ import os, random, time, logging
 from css import CSS
 from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames
 
+# gr.Dataset.update(samples=[[f] for f in get_current_documents_filenames()])
+
 def main(port):
+
+    files = gr.Dataset(label="Files", components=["text"], samples=[[f] for f in get_current_documents_filenames()])
     
     uploadDocs = gr.Interface(
             fn=process_files,
@@ -40,7 +44,8 @@ def main(port):
                 with gr.Column(scale=2, min_width=200):
                     gr.Button("Clear Files")
             with gr.Box():
-                gr.Dataset(label="Files", components=["text"], samples=[[f] for f in get_current_documents_filenames()])
+                files.render()
+                
                 
         with gr.Tab("Settings"):        
             with gr.Box():
