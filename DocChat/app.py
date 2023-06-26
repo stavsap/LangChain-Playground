@@ -2,9 +2,10 @@ import gradio as gr
 import os, random, time, logging
 
 from css import CSS
-from utils import process_files, clearClicked
+from utils import process_files, clearClicked, provision_dirs
 
 def main():
+    provision_dirs()
     uploadDocs = gr.Interface(
             fn=process_files,
             inputs=[
