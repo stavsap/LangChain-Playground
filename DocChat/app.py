@@ -2,7 +2,7 @@ import gradio as gr
 import os, random, time, logging
 
 from css import CSS
-from utils import upload, clearClicked, process_files
+from utils import process_files, clearClicked
 
 def main():
     uploadDocs = gr.Interface(
