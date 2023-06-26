@@ -1,6 +1,8 @@
 import gradio as gr
 import os, random, time, logging
 
+from utils import upload, clearClicked, process_files
+
 def main():
     uploadDocs = gr.Interface(
             fn=process_files,
