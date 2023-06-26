@@ -1,7 +1,7 @@
-import os, shutil
+import os, shutil, logging
 
 def upload(src_path, trg_path):
-    print("saving " + trg_path)
+    logging.info(f"Uploading: {trg_path}")
     shutil.copyfile(src_path, trg_path)
     
 def process_files(files):
