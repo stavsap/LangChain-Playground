@@ -9,9 +9,13 @@ from utils import process_files, clearClicked, pre_run_provision, get_current_do
 def main(port):
 
     files = gr.Dataset(label="Files", components=["text"], samples=[[f] for f in get_current_documents_filenames()])
-    
+    def upload_files(files):
+        response = process_files(files)
+        gr.Dataset.update(samples=[[f] for f in get_current_documents_filenames()])
+        return response
+        
     uploadDocs = gr.Interface(
-            fn=process_files,
+            fn=upload_files,
             inputs=[
                 gr.File(file_types=[".txt",".xls",".xlsx",".csv",".pdf"], file_count="multiple")
             ],
