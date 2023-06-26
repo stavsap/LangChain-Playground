@@ -1,6 +1,6 @@
 import os, shutil, logging
 
-from constants import 
+from constants import DOCS_DIR
 
 def upload(src_path):
     trg_path = DOCS_DIR + os.path.basename(src_path)
@@ -16,3 +16,6 @@ def process_files(files):
 
 def clearClicked():
     print("clear button clicked")
+
+def provision_dirs():
+    os.makedirs(DOCS_DIR)
