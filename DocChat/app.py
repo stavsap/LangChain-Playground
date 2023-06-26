@@ -2,8 +2,7 @@ import gradio as gr
 import os, random, shutil, time
 
 css = """
-#warning {margin-bottom: 20px} 
-.feedback textarea {font-size: 24px !important}
+#btn-pmargin-bottom {margin-bottom: 20px}
 """
 
 def do_something_to_file(path):
@@ -24,7 +23,7 @@ def clearClicked():
 uploadDocs = gr.Interface(
         fn=process_files,
         inputs=[
-            gr.File(file_types=[".csv", ".png",".pdf"], file_count="multiple")
+            gr.File(file_types=[".txt",".xls",".xlsx",".csv",".pdf"], file_count="multiple")
         ],
         outputs=gr.Markdown(),
         allow_flagging="never"
@@ -49,13 +48,14 @@ with gr.Blocks(css=css) as demo:
             uploadDocs.render()
         with gr.Box():
             with gr.Column(scale=2, min_width=200):
-                gr.Button("Clear Files",elem_id="warning")
+                gr.Button("Clear Files",elem_id="btn-pmargin-bottom")
             with gr.Column(scale=2, min_width=200):
-                gr.Button("Clear Files",elem_id="warning")
+                gr.Button("Clear Files",elem_id="btn-pmargin-bottom")
             with gr.Column(scale=2, min_width=200):
                 gr.Button("Clear Files")
         with gr.Box():
             gr.Dataset(label="Files", components=["text"], samples=[["a.txt"],["b.txt"]])
+            
     with gr.Tab("Settings"):        
         with gr.Box():
             msg = gr.Textbox(show_label=True,label="LLM Url",info="url to text generator working with LLMs")
