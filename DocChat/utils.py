@@ -24,7 +24,7 @@ def get_current_documents_filenames():
     return os.listdir(DOCS_DIR)
     
 def create_dir(path):
-    if not os.path.exists(path)
+    if not os.path.exists(path):
         os.makedirs(path)
     
 def provision_dirs():
