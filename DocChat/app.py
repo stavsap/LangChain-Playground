@@ -2,7 +2,7 @@ import gradio as gr
 import os, random, time, logging
 
 from css import CSS
-from utils import process_files, clearClicked, pre_run_provision, 
+from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames
 
 def main(port):
     
@@ -40,7 +40,7 @@ def main(port):
                 with gr.Column(scale=2, min_width=200):
                     gr.Button("Clear Files")
             with gr.Box():
-                gr.Dataset(label="Files", components=["text"], samples=[["a.txt"],["b.txt"]])
+                gr.Dataset(label="Files", components=["text"], samples=[[f] for f in get_current_documents_filename()])
                 
         with gr.Tab("Settings"):        
             with gr.Box():
