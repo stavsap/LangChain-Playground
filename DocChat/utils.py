@@ -1,9 +1,5 @@
 import shutils
 
-css = """
-#btn-pmargin-bottom {margin-bottom: 20px}
-"""
-
 def upload(src_path, trg_path):
     print("saving " + trg_path)
     shutil.copyfile(src_path, trg_path)
