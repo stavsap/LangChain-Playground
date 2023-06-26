@@ -1,7 +1,5 @@
 import gradio as gr
-import os, random, shutil, time, logging
-
-
+import os, random, time, logging
 
 def main():
     uploadDocs = gr.Interface(
@@ -13,7 +11,7 @@ def main():
             allow_flagging="never"
         )
         
-    with gr.Blocks(css=css) as demo:
+    with gr.Blocks(css=CSS) as demo:
         with gr.Tab("Chat"):
             chatbot = gr.Chatbot()
             msg = gr.Textbox(show_label=False)
