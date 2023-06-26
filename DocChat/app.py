@@ -11,7 +11,7 @@ def main(port):
     files = gr.Dataset(label="Files", components=["text"], samples=[[f] for f in get_current_documents_filenames()])
     def upload_files(files):
         response = process_files(files)
-        gr.Dataset.update(samples=[[f] for f in get_current_documents_filenames()])
+        files.update(samples=[[f] for f in get_current_documents_filenames()])
         return response
         
     uploadDocs = gr.Interface(
