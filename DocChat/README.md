@@ -1,5 +1,6 @@
 # Doc Chat
 
+## 🚦 WIP 🚦 NOT WORKING FULLY YET
 
 # Install
 
