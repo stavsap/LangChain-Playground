@@ -19,6 +19,9 @@ def clearClicked():
     
 def pre_run_provision():
     provision_dirs()
+
+def get_current_documents_filenames():
+    return os.listdir(DOCS_DIR)
     
 def provision_dirs():
     os.makedirs(DOCS_DIR)
