@@ -8,10 +8,11 @@ from utils import process_files, clearClicked, pre_run_provision, get_current_do
 
 def main(port):
 
-    files = gr.Dataset(label="Files", components=["text"], samples=[[f] for f in get_current_documents_filenames()])
+    filesDataset = gr.Dataset(label="Files", components=["text"], samples=[[f] for f in get_current_documents_filenames()])
     def upload_files(files):
         response = process_files(files)
-        files.update(samples=[[f] for f in get_current_documents_filenames()])
+        # TODO make it work
+        filesDataset.update(samples=[[f] for f in get_current_documents_filenames()])
         return response
         
     uploadDocs = gr.Interface(
@@ -48,7 +49,7 @@ def main(port):
                 with gr.Column(scale=2, min_width=200):
                     gr.Button("Clear Files")
             with gr.Box():
-                files.render()
+                filesDataset.render()
                 
                 
         with gr.Tab("Settings"):        
