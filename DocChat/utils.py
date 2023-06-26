@@ -1,4 +1,4 @@
-import shutils
+import os, shutil
 
 def upload(src_path, trg_path):
     print("saving " + trg_path)
