@@ -1,5 +1,5 @@
 import os
 
-ROOT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
+ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-SOURCE_DIRECTORY = f"{ROOT_DIRECTORY}/docs"
+DOCS_DIR = f"{ROOT_DIR}/docs"
