@@ -22,5 +22,7 @@ def setupLLM():
 
 def query(msg):
   if qa is None:
-    return "LLM is not set, please set LLM conectivity."
-  return msg
+    setupLLM()
+    if qa is None:
+      return "LLM is not set, please set LLM conectivity or construct db."
+  return qa.query(msg)["result"]
