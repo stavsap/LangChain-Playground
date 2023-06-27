@@ -5,7 +5,7 @@ from css import CSS
 from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames
 
 # gr.Dataset.update(samples=[[f] for f in get_current_documents_filenames()])
-samples=[[f] for f in get_current_documents_filenames()]
+samples = []
 def main(port):
 
     filesDataset = gr.Dataset(label="Files", components=["text"], samples=samples)
@@ -13,7 +13,7 @@ def main(port):
         response = process_files(files)
         # TODO make it work
         filesDataset.update(samples=[[f] for f in get_current_documents_filenames()])
-        samples.append(["bla])
+        samples.append(["bla"])
         return response
         
     uploadDocs = gr.Interface(
@@ -66,4 +66,5 @@ if __name__ == "__main__":
     )
     port = 8080
     pre_run_provision()
+    samples=[[f] for f in get_current_documents_filenames()]
     main(port)
