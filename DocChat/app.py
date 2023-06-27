@@ -4,11 +4,12 @@ import random, time, logging
 from css import CSS
 from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames, clearDocuments, clearDB, loadDB
 from llm import query
-from settings import LLM_URL, EMBEDDING_MODEL_NAME 
+from settings import LLM_URL, EMBEDDING_MODEL_NAME, saveSettings
 
 def main(port):
     filesDataset = gr.Markdown(value=lambda: get_current_documents_filenames())
-
+    def saveSettingsFN(url):
+        saveSettings()
     def upload_files(files):
         response = process_files(files)
         return response, get_current_documents_filenames()
@@ -54,9 +55,10 @@ def main(port):
 
         with gr.Tab("Settings"):
             with gr.Box():
-                gr.Textbox(show_label=True, label="LLM Url", info="URL to text generator working with LLMs", value=LLM_URL)
+                llmURL = gr.Textbox(show_label=True, label="LLM Url", info="URL to text generator working with LLMs", value=LLM_URL, interactive = True)
                 gr.Markdown(value="Embedding model in use: " + EMBEDDING_MODEL_NAME)
-                gr.Button("Save Settings", scale=2, min_width=200)
+                saveSettings = gr.Button("Save Settings", scale=2, min_width=200)
+                saveSettings.click(saveSettingsFN, inputs=[llmURL])
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
     )
