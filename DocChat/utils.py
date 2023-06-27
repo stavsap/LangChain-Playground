@@ -26,6 +26,10 @@ def get_current_documents_filenames():
         response+=" - " + f + "\n"
     return response
     
+def clearDocuments():
+    # TODO delete files in folder
+    return "# Current file sources\n\n"
+    
 def create_dir(path):
     if not os.path.exists(path):
         os.makedirs(path)
