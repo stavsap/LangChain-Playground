@@ -38,7 +38,7 @@ def clearDocuments():
     return "# Current file sources\n\n"
     
 def clear_folder(folder_path):
-        logging.info(f"Clearing folder: {folder_path}")
+    logging.info(f"Clearing folder: {folder_path}")
     for file_object in os.listdir(folder_path):
         file_object_path = os.path.join(folder_path, file_object)
         if os.path.isfile(file_object_path) or os.path.islink(file_object_path):
