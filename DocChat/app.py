@@ -1,30 +1,32 @@
 import gradio as gr
-import os, random, time, logging
+import random, time, logging
 
 from css import CSS
-from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames, clearDocuments
+from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames, clearDocuments, clearDB, loadDB
+
 
 def main(port):
-    filesDataset = gr.Markdown(value=get_current_documents_filenames())
+    filesDataset = gr.Markdown(value=lambda: get_current_documents_filenames())
 
     def upload_files(files):
         response = process_files(files)
         return response, get_current_documents_filenames()
-        
+
     with gr.Blocks(css=CSS) as app:
         with gr.Tab("Chat"):
             chatbot = gr.Chatbot()
             msg = gr.Textbox(show_label=False)
             clear = gr.ClearButton([msg, chatbot])
             clear.click(clearClicked)
-    
+
             def respond(message, chat_history):
                 bot_message = random.choice(["Igor is going to do that!"])
                 chat_history.append((message, bot_message))
                 time.sleep(0.5)
                 return "", chat_history
+
             msg.submit(respond, [msg, chatbot], [msg, chatbot])
-            
+
         with gr.Tab("DB Load"):
             with gr.Row():
                 with gr.Column():
@@ -37,28 +39,34 @@ def main(port):
                 with gr.Column():
                     with gr.Box():
                         with gr.Column(scale=2, min_width=200):
-                            gr.Button("Clear DB", elem_id="btn-pmargin-bottom")
+                            clearDbBtn = gr.Button("Clear DB", elem_id="btn-pmargin-bottom")
+                            clearDbBtn.click(clearDB)
                         with gr.Column(scale=2, min_width=200):
-                            gr.Button("Load DB", elem_id="btn-pmargin-bottom")
+                            loadDbBtn = gr.Button("Load DB", elem_id="btn-pmargin-bottom")
+                            loadDbBtn.click(loadDB)
                         with gr.Column(scale=2, min_width=200):
                             clearBtn = gr.Button("Clear Files")
                             clearBtn.click(clearDocuments, outputs=[filesDataset])
 
             with gr.Box():
                 filesDataset.render()
-                
-                
-        with gr.Tab("Settings"):        
+
+        with gr.Tab("Settings"):
             with gr.Box():
-                gr.Textbox(show_label=True,label="LLM Url",info="URL to text generator working with LLMs")
+                gr.Textbox(show_label=True, label="LLM Url", info="URL to text generator working with LLMs")
                 gr.Button("Set", scale=2, min_width=200)
-    
+
     app.launch(server_port=port)
+
 
 if __name__ == "__main__":
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
     )
+    print(f"\n ---- DocChat ---- \n")
+
     port = 8080
+
     pre_run_provision()
+
     main(port)

@@ -25,13 +25,27 @@ def get_current_documents_filenames():
     for f in os.listdir(DOCS_DIR):
         response+=" - " + f + "\n"
     return response
-    
+def clearDB():
+    logging.error("clearDB not implemented")
+
+def loadDB():
+    logging.error("loadDB not implemented")
+
 def clearDocuments():
     # TODO delete files in folder
+    folder_path = DOCS_DIR
+    logging.info(f"Clearing docs folder: {folder_path}")
+    for file_object in os.listdir(folder_path):
+        file_object_path = os.path.join(folder_path, file_object)
+        if os.path.isfile(file_object_path) or os.path.islink(file_object_path):
+            os.unlink(file_object_path)
+        else:
+            shutil.rmtree(file_object_path)
     return "# Current file sources\n\n"
     
 def create_dir(path):
     if not os.path.exists(path):
+        logging.info(f"Creating folder: {path}")
         os.makedirs(path)
     
 def provision_dirs():
