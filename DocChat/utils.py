@@ -24,7 +24,7 @@ def get_current_documents_filenames():
     response = ""
     for f in os.listdir(DOCS_DIR):
         response+=" - " + f + "\n"
-    return os.listdir(DOCS_DIR)
+    return response
     
 def create_dir(path):
     if not os.path.exists(path):
