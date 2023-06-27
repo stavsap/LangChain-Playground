@@ -10,6 +10,7 @@ qa = None
 
 def setupLLM():
   logging.info("Setting up LLM")
+  global qa
   qa = None
   db = getDB()
   if db is None:
