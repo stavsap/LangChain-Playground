@@ -15,8 +15,10 @@ def setupLLM():
   if db is None:
     logging.error("DB not present!, LLM not set")
     return
+  logging.info("Connecting to Text Gen at http://localhost:5000")
   llm = TextGen(model_url = "http://localhost:5000")
   qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=db.as_retriever(), return_source_documents=True)
+  logging.info("LLM set to Text Gen at http://localhost:5000")
 
 def query(msg):
   if qa is None:
