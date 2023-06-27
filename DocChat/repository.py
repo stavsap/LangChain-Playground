@@ -10,13 +10,16 @@ from langchain.vectorstores import Chroma
 from constants import (
     CHROMA_SETTINGS,
     DOCUMENT_MAP,
-    EMBEDDING_MODEL_NAME,
     INGEST_THREADS,
     DB_DIR,
     DOCS_DIR,
 )
 
+from settings import EMBEDDING_MODEL_NAME
+
 db = None
+
+embeddings = HuggingFaceInstructEmbeddings(model_name=EMBEDDING_MODEL_NAME, model_kwargs={"device": "cuda"})
 
 def load_single_document(file_path: str) -> Document:
     file_extension = os.path.splitext(file_path)[1]
@@ -85,16 +88,18 @@ def split_documents(documents: list[Document]) -> tuple[list[Document], list[Doc
     return text_docs, python_docs
 
 def getDB():
-    embeddings = HuggingFaceInstructEmbeddings(model_name=EMBEDDING_MODEL_NAME, model_kwargs={"device": "cuda"})
-    db = Chroma(
-        persist_directory=DB_DIR,
-        embedding_function=embeddings,
-        client_settings=CHROMA_SETTINGS,
-    )
-
+    global db
+    if db is None:
+        db = Chroma(
+            persist_directory=DB_DIR,
+            embedding_function=embeddings,
+            client_settings=CHROMA_SETTINGS,
+        )
     return db
 
 def ingest(device_type = "cuda"):
+
+    global db
     
     logging.info(f"Loading documents from {DOCS_DIR}")
     
@@ -114,11 +119,6 @@ def ingest(device_type = "cuda"):
     logging.info(f"Loaded {len(documents)} documents from {DOCS_DIR}")
     
     logging.info(f"Split into {len(texts)} chunks of text")
-
-    embeddings = HuggingFaceInstructEmbeddings(
-        model_name=EMBEDDING_MODEL_NAME,
-        model_kwargs={"device": device_type},
-    )
 
     db = Chroma.from_documents(
         texts,
