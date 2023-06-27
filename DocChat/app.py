@@ -7,23 +7,17 @@ from utils import process_files, clearClicked, pre_run_provision, get_current_do
 # gr.Dataset.update(samples=[[f] for f in get_current_documents_filenames()])
 samples = []
 def main(port):
-
-    filesDataset = gr.Dataset(label="Files", components=["text"], samples=samples)
+    filesDataset = gr.Markdown(value=get_current_documents_filenames())
     def upload_files(files):
         response = process_files(files)
-        # TODO make it work
-        samples.append(["bla"])
-        filesDataset.update(visible=False)
-        time.sleep(0.1)
-        filesDataset.update(visible=True)
-        return response
+        return response, get_current_documents_filenames()
         
     uploadDocs = gr.Interface(
             fn=upload_files,
             inputs=[
                 gr.File(file_types=[".txt",".xls",".xlsx",".csv",".pdf"], file_count="multiple")
             ],
-            outputs=[gr.Markdown()],
+            outputs=[gr.Markdown(),filesDataset],
             allow_flagging="never"
         )
         
@@ -68,5 +62,4 @@ if __name__ == "__main__":
     )
     port = 8080
     pre_run_provision()
-    samples=[[f] for f in get_current_documents_filenames()]
     main(port)
