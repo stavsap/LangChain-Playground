@@ -84,6 +84,10 @@ def provisionDB():
             )
         db.persist()
 
+def dropDB():    
+    logging.info("Dropping current embeddings")
+    db.delete(db.get()["ids"])
+    
 def getDB():
     global db
     provisionDB()
@@ -114,11 +118,9 @@ def ingest(device_type = "cuda"):
     
     logging.info(f"Split into {len(texts)} chunks of text")
 
-    logging.info("Dropping current embeddings")
+    dropDB()
 
-    db.delete(db.get()["ids"])
-
-    logging.info("Embeddings new documents")
+    logging.info("Saving new embeddings")
 
     db.add_documents(texts)
     
