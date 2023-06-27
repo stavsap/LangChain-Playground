@@ -45,8 +45,6 @@ def main(port):
                     gr.Button("Clear Files",elem_id="btn-pmargin-bottom")
                 with gr.Column(scale=2, min_width=200):
                     gr.Button("Clear Files")
-            with gr.Box():
-                filesDataset.render()
                 
                 
         with gr.Tab("Settings"):        
