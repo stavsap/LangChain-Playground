@@ -55,7 +55,9 @@ def main(port):
             with gr.Box():
                 gr.Textbox(show_label=True, label="LLM Url", info="URL to text generator working with LLMs")
                 gr.Button("Set", scale=2, min_width=200)
-
+    logging.basicConfig(
+        format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
+    )
     app.launch(server_port=port)
 
 
