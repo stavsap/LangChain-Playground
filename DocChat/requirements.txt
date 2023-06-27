@@ -3,4 +3,5 @@ langchain==0.0.216
 chromadb==0.3.26
 
 pdfminer.six==20221105
-InstructorEmbedding
+InstructorEmbedding==1.0.1
+sentence-transformers==2.2.2
