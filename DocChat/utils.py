@@ -1,6 +1,7 @@
 import os, shutil, logging
 
 from constants import DOCS_DIR, DB_DIR
+from repository import ingest
 
 def upload(src_path):
     trg_path = DOCS_DIR + os.path.basename(src_path)
@@ -29,7 +30,7 @@ def clearDB():
     logging.error("clearDB not implemented")
 
 def loadDB():
-    logging.error("loadDB not implemented")
+    ingest()
 
 def clearDocuments():
     # TODO delete files in folder
