@@ -3,6 +3,7 @@ import random, time, logging
 
 from css import CSS
 from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames, clearDocuments, clearDB, loadDB
+from llm import query
 
 
 def main(port):
@@ -20,7 +21,7 @@ def main(port):
             clear.click(clearClicked)
 
             def respond(message, chat_history):
-                bot_message = random.choice(["Igor is going to do that!"])
+                bot_message = query(message)
                 chat_history.append((message, bot_message))
                 time.sleep(0.5)
                 return "", chat_history
