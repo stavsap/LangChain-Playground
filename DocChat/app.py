@@ -2,12 +2,11 @@ import gradio as gr
 import os, random, time, logging
 
 from css import CSS
-from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames
+from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames, clearDocuments
 
 def main(port):
     filesDataset = gr.Markdown(value=get_current_documents_filenames())
-    def clearDocuments():
-        return ""
+
     def upload_files(files):
         response = process_files(files)
         return response, get_current_documents_filenames()
