@@ -4,7 +4,7 @@ import random, time, logging
 from css import CSS
 from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames, clearDocuments, clearDB, loadDB
 from llm import query
-from settings import
+from settings import LLM_URL 
 
 def main(port):
     filesDataset = gr.Markdown(value=lambda: get_current_documents_filenames())
@@ -54,7 +54,7 @@ def main(port):
 
         with gr.Tab("Settings"):
             with gr.Box():
-                gr.Textbox(show_label=True, label="LLM Url", info="URL to text generator working with LLMs", value=)
+                gr.Textbox(show_label=True, label="LLM Url", info="URL to text generator working with LLMs", value=LLM_URL)
                 gr.Button("Set", scale=2, min_width=200)
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
