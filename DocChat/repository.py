@@ -17,7 +17,6 @@ from constants import (
 )
 
 def load_single_document(file_path: str) -> Document:
-    # Loads a single document from a file path
     file_extension = os.path.splitext(file_path)[1]
     loader_class = DOCUMENT_MAP.get(file_extension)
     if loader_class:
@@ -82,32 +81,32 @@ def split_documents(documents: list[Document]) -> tuple[list[Document], list[Doc
             text_docs.append(doc)
 
     return text_docs, python_docs
-
+    
 def ingest(device_type = "cuda"):
-    # Load documents and split in chunks
+    
     logging.info(f"Loading documents from {DOCS_DIR}")
+    
     documents = load_documents(DOCS_DIR)
+    
     text_documents, python_documents = split_documents(documents)
+    
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    
     python_splitter = RecursiveCharacterTextSplitter.from_language(
         language=Language.PYTHON, chunk_size=1000, chunk_overlap=200
     )
     texts = text_splitter.split_documents(text_documents)
+    
     texts.extend(python_splitter.split_documents(python_documents))
+    
     logging.info(f"Loaded {len(documents)} documents from {DOCS_DIR}")
+    
     logging.info(f"Split into {len(texts)} chunks of text")
 
-    # Create embeddings
     embeddings = HuggingFaceInstructEmbeddings(
         model_name=EMBEDDING_MODEL_NAME,
         model_kwargs={"device": device_type},
     )
-    # change the embedding type here if you are running into issues.
-    # These are much smaller embeddings and will work for most appications
-    # If you use HuggingFaceEmbeddings, make sure to also use the same in the
-    # run_localGPT.py file.
-
-    # embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
 
     db = Chroma.from_documents(
         texts,
@@ -115,5 +114,5 @@ def ingest(device_type = "cuda"):
         persist_directory=DB_DIR,
         client_settings=CHROMA_SETTINGS,
     )
+    
     db.persist()
-    db = None
