@@ -5,6 +5,7 @@ from css import CSS
 from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames, clearDocuments, clearDB, loadDB
 from llm import query
 from settings import LLM_URL, EMBEDDING_MODEL_NAME, saveSettings
+from constants import GLOBAL_SETTINGS_MARKDOWN
 
 def main(port):
     filesDataset = gr.Markdown(value=lambda: get_current_documents_filenames())
@@ -57,7 +58,7 @@ def main(port):
         with gr.Tab("Settings"):
             with gr.Box():
                 llmURL = gr.Textbox(show_label=True, label="LLM Url", info="URL to text generator working with LLMs", value=LLM_URL, interactive = True)
-                gr.Markdown(value="Embedding model in use: " + EMBEDDING_MODEL_NAME)
+                gr.Markdown(value=GLOBAL_SETTINGS_MARKDOWN)
                 saveSettingsBtn = gr.Button("Save Settings", scale=2, min_width=200)
                 saveSettingsBtn.click(saveSettingsFN, inputs=[llmURL])
     logging.basicConfig(
