@@ -30,7 +30,7 @@ def main(port):
                     with gr.Box():
                         f = gr.File(file_types=[".txt", ".xls", ".xlsx", ".csv", ".pdf"], file_count="multiple")
                         with gr.Column(scale=2, min_width=200):
-                            b = gr.Button("UPLOAD", elem_id="btn-pmargin-bottom")
+                            b = gr.Button("Upload Documents", elem_id="btn-pmargin-bottom")
                         status = gr.Markdown()
                         b.click(upload_files, inputs=[f], outputs=[status, filesDataset])
                 with gr.Column():
@@ -40,7 +40,7 @@ def main(port):
                         with gr.Column(scale=2, min_width=200):
                             gr.Button("Load DB", elem_id="btn-pmargin-bottom")
                         with gr.Column(scale=2, min_width=200):
-                            gr.Button("Clear Files")
+                            clearBtn = gr.Button("Clear Files")
 
             with gr.Box():
                 filesDataset.render()
