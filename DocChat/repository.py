@@ -87,14 +87,19 @@ def split_documents(documents: list[Document]) -> tuple[list[Document], list[Doc
 
     return text_docs, python_docs
 
-def getDB():
+def provisionDB():
     global db
     if db is None:
         db = Chroma(
-            persist_directory=DB_DIR,
-            embedding_function=embeddings,
-            client_settings=CHROMA_SETTINGS,
-        )
+                persist_directory=DB_DIR,
+                embedding_function=embeddings,
+                client_settings=CHROMA_SETTINGS,
+            )
+        db.persist()
+
+def getDB():
+    global db
+    provisionDB()
     return db
 
 def ingest(device_type = "cuda"):
