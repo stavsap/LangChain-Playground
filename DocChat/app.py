@@ -6,6 +6,8 @@ from utils import process_files, clearClicked, pre_run_provision, get_current_do
 
 def main(port):
     filesDataset = gr.Markdown(value=get_current_documents_filenames())
+    def clearDocuments():
+        return ""
     def upload_files(files):
         response = process_files(files)
         return response, get_current_documents_filenames()
@@ -41,6 +43,7 @@ def main(port):
                             gr.Button("Load DB", elem_id="btn-pmargin-bottom")
                         with gr.Column(scale=2, min_width=200):
                             clearBtn = gr.Button("Clear Files")
+                            clearBtn.click(clearDocuments, outputs=[filesDataset])
 
             with gr.Box():
                 filesDataset.render()
