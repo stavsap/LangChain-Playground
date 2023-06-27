@@ -1,3 +1,5 @@
+import logging
+
 from langchain.llms import TextGen, HuggingFacePipeline
 from langchain.chains import RetrievalQA
 from langchain.embeddings import HuggingFaceInstructEmbeddings
@@ -7,8 +9,11 @@ from repository import getDB
 qa = None
 
 def setupLLM():
+  logging.info("Setting up LLM")
+  qa = None
   db = getDB()
   if db is None:
+    logging.error("DB not present!, LLM not set")
     return
   llm = TextGen(model_url = "http://localhost:5000")
   qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=db.as_retriever(), return_source_documents=True)
