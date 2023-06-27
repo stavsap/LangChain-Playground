@@ -1,7 +1,7 @@
 import os, shutil, logging
 
 from constants import DOCS_DIR, DB_DIR
-from repository import ingest
+from repository import ingest, provisionDB
 from settings import loadSettings
 
 def upload(src_path):
@@ -20,8 +20,9 @@ def clearClicked():
     print("clear button clicked")
     
 def pre_run_provision():
-    loadSettings()
     provision_dirs()
+    loadSettings()
+    provisionDB()
 
 def get_current_documents_filenames():
     response = "# Current file sources\n\n"
