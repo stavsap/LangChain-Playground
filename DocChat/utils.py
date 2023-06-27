@@ -21,6 +21,9 @@ def pre_run_provision():
     provision_dirs()
 
 def get_current_documents_filenames():
+    response = ""
+    for f in os.listdir(DOCS_DIR):
+        response+=" - " + f + "\n"
     return os.listdir(DOCS_DIR)
     
 def create_dir(path):
