@@ -2,6 +2,7 @@ import os, shutil, logging
 
 from constants import DOCS_DIR, DB_DIR
 from repository import ingest
+from settings import loadSettings
 
 def upload(src_path):
     trg_path = DOCS_DIR + os.path.basename(src_path)
@@ -19,6 +20,7 @@ def clearClicked():
     print("clear button clicked")
     
 def pre_run_provision():
+    loadSettings()
     provision_dirs()
 
 def get_current_documents_filenames():
