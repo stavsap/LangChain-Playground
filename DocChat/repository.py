@@ -16,6 +16,8 @@ from constants import (
     DOCS_DIR,
 )
 
+db = None
+
 def load_single_document(file_path: str) -> Document:
     file_extension = os.path.splitext(file_path)[1]
     loader_class = DOCUMENT_MAP.get(file_extension)
@@ -81,7 +83,10 @@ def split_documents(documents: list[Document]) -> tuple[list[Document], list[Doc
             text_docs.append(doc)
 
     return text_docs, python_docs
-    
+
+def getDB():
+    return db
+
 def ingest(device_type = "cuda"):
     
     logging.info(f"Loading documents from {DOCS_DIR}")
