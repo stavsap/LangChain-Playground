@@ -55,6 +55,7 @@ def main(port):
         with gr.Tab("Settings"):
             with gr.Box():
                 gr.Textbox(show_label=True, label="LLM Url", info="URL to text generator working with LLMs", value=LLM_URL)
+                gr.Markdown(value="Embedding model in use: " + )
                 gr.Button("Set", scale=2, min_width=200)
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
