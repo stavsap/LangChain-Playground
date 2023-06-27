@@ -1,7 +1,7 @@
 import os, shutil, logging
 
 from constants import DOCS_DIR, DB_DIR
-from repository import ingest, provisionDB
+from repository import ingest, provisionDB, dropDB
 from settings import loadSettings
 
 def upload(src_path):
@@ -31,7 +31,7 @@ def get_current_documents_filenames():
     return response
     
 def clearDB():
-    clear_folder(DB_DIR)
+    dropDB()
 
 def loadDB():
     ingest()
