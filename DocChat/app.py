@@ -5,14 +5,15 @@ from css import CSS
 from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames
 
 # gr.Dataset.update(samples=[[f] for f in get_current_documents_filenames()])
-
+samples=[[f] for f in get_current_documents_filenames()]
 def main(port):
 
-    filesDataset = gr.Dataset(label="Files", components=["text"], samples=[[f] for f in get_current_documents_filenames()])
+    filesDataset = gr.Dataset(label="Files", components=["text"], samples=samples)
     def upload_files(files):
         response = process_files(files)
         # TODO make it work
         filesDataset.update(samples=[[f] for f in get_current_documents_filenames()])
+        samples.append(["bla])
         return response
         
     uploadDocs = gr.Interface(
