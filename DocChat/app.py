@@ -12,15 +12,14 @@ def main(port):
     def upload_files(files):
         response = process_files(files)
         # TODO make it work
-        filesDataset.update(samples=[[f] for f in get_current_documents_filenames()])
-        return response
+        return response, gr.Dataset.update(samples=[[f] for f in get_current_documents_filenames()])
         
     uploadDocs = gr.Interface(
             fn=upload_files,
             inputs=[
                 gr.File(file_types=[".txt",".xls",".xlsx",".csv",".pdf"], file_count="multiple")
             ],
-            outputs=gr.Markdown(),
+            outputs=[gr.Markdown(),filesDataset],
             allow_flagging="never"
         )
         
