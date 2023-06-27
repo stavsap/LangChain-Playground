@@ -9,7 +9,7 @@ LLM_PASSWORD = None
 EMBEDDING_MODEL_NAME = "hkunlp/instructor-large"
 
 def saveSetting():
-  logging.error("saveSetting NOT IMPLEMENTED")  
+  logging.error("Save Setting NOT IMPLEMENTED")  
 
 def loadSettings():
-  logging.error("saveSetting NOT IMPLEMENTED")  
+  logging.error("Lode Setting NOT IMPLEMENTED")  
