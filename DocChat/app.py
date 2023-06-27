@@ -4,22 +4,11 @@ import os, random, time, logging
 from css import CSS
 from utils import process_files, clearClicked, pre_run_provision, get_current_documents_filenames
 
-# gr.Dataset.update(samples=[[f] for f in get_current_documents_filenames()])
-samples = []
 def main(port):
     filesDataset = gr.Markdown(value=get_current_documents_filenames())
     def upload_files(files):
         response = process_files(files)
         return response, get_current_documents_filenames()
-        
-    uploadDocs = gr.Interface(
-            fn=upload_files,
-            inputs=[
-                gr.File(file_types=[".txt",".xls",".xlsx",".csv",".pdf"], file_count="multiple")
-            ],
-            outputs=[gr.Markdown(),filesDataset],
-            allow_flagging="never"
-        )
         
     with gr.Blocks(css=CSS) as app:
         with gr.Tab("Chat"):
@@ -35,21 +24,31 @@ def main(port):
                 return "", chat_history
             msg.submit(respond, [msg, chatbot], [msg, chatbot])
             
-        with gr.Tab("DB Load"):        
+        with gr.Tab("DB Load"):
+            with gr.Row():
+                with gr.Column():
+                    with gr.Box():
+                        f = gr.File(file_types=[".txt", ".xls", ".xlsx", ".csv", ".pdf"], file_count="multiple")
+                        with gr.Column(scale=2, min_width=200):
+                            b = gr.Button("UPLOAD", elem_id="btn-pmargin-bottom")
+                        status = gr.Markdown()
+                        b.click(upload_files, inputs=[f], outputs=[status, filesDataset])
+                with gr.Column():
+                    with gr.Box():
+                        with gr.Column(scale=2, min_width=200):
+                            gr.Button("Clear DB", elem_id="btn-pmargin-bottom")
+                        with gr.Column(scale=2, min_width=200):
+                            gr.Button("Load DB", elem_id="btn-pmargin-bottom")
+                        with gr.Column(scale=2, min_width=200):
+                            gr.Button("Clear Files")
+
             with gr.Box():
-                uploadDocs.render()
-            with gr.Box():
-                with gr.Column(scale=2, min_width=200):
-                    gr.Button("Clear Files",elem_id="btn-pmargin-bottom")
-                with gr.Column(scale=2, min_width=200):
-                    gr.Button("Clear Files",elem_id="btn-pmargin-bottom")
-                with gr.Column(scale=2, min_width=200):
-                    gr.Button("Clear Files")
+                filesDataset.render()
                 
                 
         with gr.Tab("Settings"):        
             with gr.Box():
-                msg = gr.Textbox(show_label=True,label="LLM Url",info="URL to text generator working with LLMs")
+                gr.Textbox(show_label=True,label="LLM Url",info="URL to text generator working with LLMs")
                 gr.Button("Set", scale=2, min_width=200)
     
     app.launch(server_port=port)

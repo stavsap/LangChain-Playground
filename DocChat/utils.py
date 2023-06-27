@@ -21,7 +21,7 @@ def pre_run_provision():
     provision_dirs()
 
 def get_current_documents_filenames():
-    response = ""
+    response = "# Current file sources\n\n"
     for f in os.listdir(DOCS_DIR):
         response+=" - " + f + "\n"
     return response
