@@ -125,11 +125,15 @@ def ingest(device_type = "cuda"):
     
     logging.info(f"Split into {len(texts)} chunks of text")
 
-    db = Chroma.from_documents(
-        texts,
-        embeddings,
-        persist_directory=DB_DIR,
-        client_settings=CHROMA_SETTINGS,
-    )
+    db.delete_collection()
+
+    db.add_documents(texts)
+
+    # db = Chroma.from_documents(
+    #     texts,
+    #     embeddings,
+    #     persist_directory=DB_DIR,
+    #     client_settings=CHROMA_SETTINGS,
+    # )
     
     db.persist()
