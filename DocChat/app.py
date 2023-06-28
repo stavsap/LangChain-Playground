@@ -91,14 +91,20 @@ def main(port):
             with gr.Box():
                 gr.Markdown(value=GLOBAL_SETTINGS_MARKDOWN)
     logging.basicConfig(
-        format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
+        format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
+    )
+    logging.basicConfig(
+        format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.DEBUG
     )
     app.launch(server_port=port)
 
 
 if __name__ == "__main__":
     logging.basicConfig(
-        format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
+        format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
+    )
+    logging.basicConfig(
+        format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.DEBUG
     )
     print(f"\n ---- DocChat ---- \n")
 
