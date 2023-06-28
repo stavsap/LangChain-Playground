@@ -2,11 +2,13 @@ import os
 from chromadb.config import Settings
 from langchain.document_loaders import CSVLoader, PDFMinerLoader, TextLoader, UnstructuredExcelLoader
 
-ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
+ROOT_DIR = os.path.dirname(os.path.realpath(__file__)) + os.sep
 
-DOCS_DIR = f"{ROOT_DIR}/docs/"
+DOCS_DIR = f"{ROOT_DIR}docs{os.sep}"
 
-DB_DIR = f"{ROOT_DIR}/db/"
+DB_DIR = f"{ROOT_DIR}db{os.sep}"
+
+SETTINGS_FILE_PATH = f"{ROOT_DIR}.settings"
 
 INGEST_THREADS = (os.cpu_count() -1) or 3
 
@@ -24,10 +26,11 @@ DOCUMENT_MAP = {
 }
 
 GLOBAL_SETTINGS_MARKDOWN = """
+
 # Global Constant Settings
 
-- embedding model: hkunlp/instructor-large
+- embedding model: 'hkunlp/instructor-large'
 - vector db: chromadb
-- chroma_db_impl: "duckdb+parquet"
+- chroma_db_impl: 'duckdb+parquet'
 
 """

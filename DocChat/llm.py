@@ -26,4 +26,8 @@ def query(msg):
     setupLLM()
     if qa is None:
       return "LLM is not set, please set LLM conectivity or construct db."
-  return qa(msg)["result"]
+  try:
+    return qa(msg)["result"]
+  except Exception as e:
+    logging.error(e)
+    return "## Cant reach LLM, check the logs.\n\n" + str(e)

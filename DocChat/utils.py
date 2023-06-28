@@ -48,6 +48,7 @@ def clear_folder(folder_path):
             os.unlink(file_object_path)
         else:
             shutil.rmtree(file_object_path)
+
     
 def create_dir(path):
     if not os.path.exists(path):
