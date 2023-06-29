@@ -8,7 +8,11 @@ inspired by [LocalGPT](https://github.com/PromtEngineer/localGPT)
 
 # Install
 
-## Install Linux
+## [Install](https://github.com/stavsap/generative-ai-wsl2#text-generation-webui-oobabooga) Text Gen webui on wsl2/ubuntu
+
+## Install on Linux
+
+supported also on wsl2 ubuntu
 
 Prerequesits:
 - python3
