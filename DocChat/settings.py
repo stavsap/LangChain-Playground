@@ -1,4 +1,4 @@
-import logging, json
+import logging,json,os
 
 from constants import SETTINGS_FILE_PATH
 
@@ -9,6 +9,8 @@ LLM_USERNAME = None
 LLM_PASSWORD = None
 
 EMBEDDING_MODEL_NAME = "hkunlp/instructor-large"
+
+DEVICE_TYPE = value = os.getenv("DEVICE_TYPE", "cpu")
 
 class Settings:
   def __init__(self, enableTextGenWebui, textGenWebuiURL, textGenWebuiEnableAuth,
@@ -58,3 +60,12 @@ def loadSettings():
 def getSettings():
   global CURRENT_SETTINGS
   return CURRENT_SETTINGS
+
+GLOBAL_SETTINGS_MARKDOWN = """
+
+# Global Constant Settings
+
+- embedding model: 'hkunlp/instructor-large'
+- vector db: chromadb
+- chroma_db_impl: 'duckdb+parquet'
+""" + "- device type: '" + DEVICE_TYPE+"' "

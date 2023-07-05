@@ -1,8 +1,7 @@
 import logging
 
-from langchain.llms import TextGen, HuggingFacePipeline
+from langchain.llms import TextGen
 from langchain.chains import RetrievalQA
-from langchain.embeddings import HuggingFaceInstructEmbeddings
 
 from repository import getDB
 from settings import LLM_URL
@@ -25,7 +24,7 @@ def query(msg):
   if qa is None:
     setupLLM()
     if qa is None:
-      return "LLM is not set, please set LLM conectivity or construct db."
+      return "LLM is not set, please set LLM connectivity"
   try:
     return qa(msg)["result"]
   except Exception as e:

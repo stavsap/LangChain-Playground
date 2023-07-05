@@ -1,4 +1,4 @@
-import os, logging
+import os,logging
 
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 
@@ -15,7 +15,7 @@ from constants import (
     DOCS_DIR,
 )
 
-from settings import EMBEDDING_MODEL_NAME
+from settings import EMBEDDING_MODEL_NAME, DEVICE_TYPE
 
 db = None
 
@@ -76,7 +76,7 @@ def split_documents(documents: list[Document]) -> tuple[list[Document], list[Doc
 def provisionDB():
     global db
     if db is None:
-        embeddings = HuggingFaceInstructEmbeddings(model_name=EMBEDDING_MODEL_NAME, model_kwargs={"device": "cuda"})
+        embeddings = HuggingFaceInstructEmbeddings(model_name=EMBEDDING_MODEL_NAME, model_kwargs={"device": DEVICE_TYPE})
         db = Chroma(
                 persist_directory=DB_DIR,
                 embedding_function=embeddings,
@@ -93,7 +93,7 @@ def getDB():
     provisionDB()
     return db
 
-def ingest(device_type = "cuda"):
+def ingest():
 
     global db
     

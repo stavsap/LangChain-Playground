@@ -25,12 +25,4 @@ DOCUMENT_MAP = {
     ".xlxs": UnstructuredExcelLoader,
 }
 
-GLOBAL_SETTINGS_MARKDOWN = """
 
-# Global Constant Settings
-
-- embedding model: 'hkunlp/instructor-large'
-- vector db: chromadb
-- chroma_db_impl: 'duckdb+parquet'
-
-"""
