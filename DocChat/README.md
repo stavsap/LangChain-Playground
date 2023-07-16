@@ -23,3 +23,7 @@ curl -sLS https://raw.githubusercontent.com/stavsap/LangChain-Playground/main/Do
 ```
 
 ## Usage TBD
+
+## Environment Variables
+
+- DEVICE_TYPE - set the device type for the embedding db, default is 'cpu', can e also 'cude'.
