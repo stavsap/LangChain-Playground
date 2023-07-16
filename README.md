@@ -13,3 +13,7 @@ A small [gradio](https://gradio.app/) chat bot with [chroma](https://www.trychro
 ## Environment Variables
 
 - DEVICE_TYPE - set the device type for the embedding db, default is 'cpu', can e also 'cude'.
+
+## Tutorials
+
+https://www.mlexpert.io/prompt-engineering/chatbot-with-local-llm-using-langchain
