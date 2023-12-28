@@ -13,7 +13,7 @@ SETTINGS_FILE_PATH = f"{ROOT_DIR}.settings"
 INGEST_THREADS = (os.cpu_count() -1) or 3
 
 CHROMA_SETTINGS = Settings(
-    chroma_db_impl="duckdb+parquet", persist_directory=DB_DIR, anonymized_telemetry=False
+    persist_directory=DB_DIR, anonymized_telemetry=False
 )
 
 DOCUMENT_MAP = {

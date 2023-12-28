@@ -13,6 +13,7 @@ def main(port):
                                                           username, password, openaiCheckbox, openAIKey):
         saveSettings(Settings(textGenWebuiCheckbox,llmURL,textGenWebuiAuthCheckbox,username,password,openaiCheckbox,openAIKey))
     def upload_files(files):
+        print("Uploading files...")
         response = process_files(files)
         return response, get_current_documents_filenames()
     def toogleAuth(enabled):
@@ -38,14 +39,14 @@ def main(port):
         with gr.Tab("DB Load"):
             with gr.Row():
                 with gr.Column():
-                    with gr.Box():
+                    with gr.Group():
                         f = gr.File(file_types=[".txt", ".xls", ".xlsx", ".csv", ".pdf"], file_count="multiple")
                         with gr.Column(scale=2, min_width=200):
                             b = gr.Button("Upload Documents", elem_id="btn-pmargin-bottom")
                         status = gr.Markdown()
                         b.click(upload_files, inputs=[f], outputs=[status, filesDataset])
                 with gr.Column():
-                    with gr.Box():
+                    with gr.Group():
                         with gr.Column(scale=2, min_width=200):
                             clearDbBtn = gr.Button("Clear DB", elem_id="btn-pmargin-bottom")
                             clearDbBtn.click(clearDB)
@@ -56,22 +57,22 @@ def main(port):
                             clearBtn = gr.Button("Clear Files")
                             clearBtn.click(clearDocuments, outputs=[filesDataset])
 
-            with gr.Box():
+            with gr.Group():
                 filesDataset.render()
 
         with gr.Tab("Settings"):
-            with gr.Box():
+            with gr.Group():
                 textGenWebuiCheckbox = gr.Checkbox(value=CURRENT_SETTINGS.enableTextGenWebui, label="Integrate With Text Gen Webui", interactive= True)
-                with gr.Box(visible=CURRENT_SETTINGS.enableTextGenWebui) as textGenWebuibox:
+                with gr.Group(visible=CURRENT_SETTINGS.enableTextGenWebui) as textGenWebuibox:
                     llmURL = gr.Textbox(show_label=True, label="Text Gen WebUI URL", info="URL to text generator  webui working", value=CURRENT_SETTINGS.textGenWebuiURL, interactive = True)
                     textGenWebuiAuthCheckbox = gr.Checkbox(value=CURRENT_SETTINGS.textGenWebuiEnableAuth, label="Enable Auth",
                                                        interactive=True)
                     username = gr.Textbox(visible=CURRENT_SETTINGS.textGenWebuiEnableAuth,show_label=True, value=CURRENT_SETTINGS.textGenWebuiUsername, interactive = True, label="Username")
                     password = gr.Textbox(visible=CURRENT_SETTINGS.textGenWebuiEnableAuth,show_label=True, value=CURRENT_SETTINGS.textGenWebuiPassword, interactive = True, label="Password", type="password")
-            with gr.Box():
+            with gr.Group():
                 openaiCheckbox = gr.Checkbox(value=CURRENT_SETTINGS.openaiEnabled, label="Integrate With OpenAI",
                                                        interactive=True)
-                with gr.Box(visible=CURRENT_SETTINGS.openaiEnabled) as openaiBox:
+                with gr.Group(visible=CURRENT_SETTINGS.openaiEnabled) as openaiBox:
                     openAIKey = gr.Textbox(show_label=True, label="OpenAI API Key", info="Open AI API key to your account",
                                         value=CURRENT_SETTINGS.opeanAIApiKey, interactive=True)
 
@@ -87,7 +88,7 @@ def main(port):
 
             saveSettingsBtn.click(saveSettingsFN, inputs=[textGenWebuiCheckbox, llmURL, textGenWebuiAuthCheckbox,
                                                           username, password, openaiCheckbox, openAIKey])
-            with gr.Box():
+            with gr.Group():
                 gr.Markdown(value=GLOBAL_SETTINGS_MARKDOWN)
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -107,7 +108,7 @@ if __name__ == "__main__":
     )
     print(f"\n ---- DocChat ---- \n")
 
-    port = 8080
+    port = 8081
 
     pre_run_provision()
 

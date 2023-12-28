@@ -84,9 +84,13 @@ def provisionDB():
             )
         db.persist()
 
+
 def dropDB():    
     logging.info("Dropping current embeddings")
-    db.delete(db.get()["ids"])
+    ids = db.get()["ids"]
+    if len(ids) == 0:
+        return
+    db.delete(ids)
     
 def getDB():
     global db
@@ -104,7 +108,15 @@ def ingest():
     logging.info("Found "+str(len(documents))+" documents")
     
     text_documents, python_documents = split_documents(documents)
-    
+
+    embeddings = HuggingFaceInstructEmbeddings(model_name=EMBEDDING_MODEL_NAME, model_kwargs={"device": DEVICE_TYPE})
+
+    db = Chroma.from_documents(
+        text_documents,
+        embeddings,
+        persist_directory="./embedding_db",
+    )
+
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     
     python_splitter = RecursiveCharacterTextSplitter.from_language(

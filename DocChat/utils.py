@@ -34,6 +34,7 @@ def clearDB():
     dropDB()
 
 def loadDB():
+    print("loadDB clicked")
     ingest()
 
 def clearDocuments():
